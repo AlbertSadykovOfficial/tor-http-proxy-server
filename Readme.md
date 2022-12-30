@@ -1,7 +1,8 @@
-# TOR Proxy Server
+# HTTP Proxy server via TOR
 
 ## 1. Docker-образ:
-https://hub.docker.com/r/albertsadykovofficial/tor-proxy
+[https://hub.docker.com/r/albertsadykovofficial/tor-proxy](https://hub.docker.com/r/albertsadykovofficial/tor-proxy)
+
 
 ## 2. Использование:
 Из контейнера проброшен 9052 порт для HTTP-прокси,
@@ -21,7 +22,7 @@ services:
 ### Запуск
 Поднимаем прокси (это может занять некоторое время)
 ```bash
-	docker-compose up -d
+docker-compose up -d
 ```
 
 ### Проверка
@@ -29,13 +30,13 @@ ip-address - адрес, где запущен прокси
 
 port - Порт, который проброшен наверх
 ```sh
-	curl -Lx http://<ip-address>:<port>  https://icanhazip.com
+curl -Lx http://<ip-address>:<port>  https://icanhazip.com
 ```
 
 ### Остановка
 Остановка
 ```bash
-	docker-compose stop
+docker-compose stop
 ```
 
 ## 3. Параметры Тор:
@@ -56,17 +57,17 @@ services:
 
 Значения по-умолчанию (добавьте их в свой файл конфигураций, если пробрасываете файл):
 ```
-	SocksPort 0.0.0.0:9050 IsolateDestAddr
-	ControlPort 0.0.0.0:9051
-	TransPort 0.0.0.0:9040
-	HTTPTunnelPort 0.0.0.0:9052
-	DataDirectory /var/lib/tor
+SocksPort 0.0.0.0:9050 IsolateDestAddr
+ControlPort 0.0.0.0:9051
+TransPort 0.0.0.0:9040
+HTTPTunnelPort 0.0.0.0:9052
+DataDirectory /var/lib/tor
 ```
 
 Установим обновление ip адреса - каждые 60 секунд с проверкой обновления каждые 15 секунд:
 ```
-	MaxCircuitDirtiness 60
-	NewCircuitPeriod 15
+MaxCircuitDirtiness 60
+NewCircuitPeriod 15
 ```
 
 ExitNodes - Желательные выходные узлы (Россия, Украина, Беларусь)
@@ -77,14 +78,14 @@ ExcludeNodes - Не включать следующие страны в путь
 см. гаву 4. Устранение неполадок, поэтому указываем параметр StrictNodes 0,
 чтобы сеть в таком случае все равно строилась)
 ```
-	ExitNodes {ru},{ua},{by}
-	ExcludeNodes {us},{gb} StrictNodes 0
+ExitNodes {ru},{ua},{by}
+ExcludeNodes {us},{gb} StrictNodes 0
 ```
 
 Все параметры Тор:
-```
-	https://2019.www.torproject.org/docs/tor-manual.html.en
-```
+
+[https://2019.www.torproject.org/docs/tor-manual.html.en](https://2019.www.torproject.org/docs/tor-manual.html.en)
+
 
 ## 4. Устранение неполадок
 Если будет bootstrapping error - это значит, тор не может найти мостовые узлы, для
@@ -98,9 +99,9 @@ ExcludeNodes - Не включать следующие страны в путь
 
 Параметры кофигурации:
 ```
-	UseBridges 1
-	bridge 185.61.119.8:444
-	bridge 80.247.238.246:444
+UseBridges 1
+bridge 185.61.119.8:444
+bridge 80.247.238.246:444
 ```
 
 ## 5. Кластер прокси-серверов (docker-swarm пример)
@@ -128,7 +129,7 @@ services:
 
 Инициализация Swarm-менеджера
 ```bash
-	docker swarm init
+docker swarm init
 ```
 
 Создадим приложение (без переменных окружения)
@@ -137,12 +138,12 @@ services:
 
 (Это может занять некоторое время)
 ```bash
-	docker stack deploy --compose-file docker-compose.yaml <your-name>
+docker stack deploy --compose-file docker-compose.yaml <your-name>
 ```
 
 Посмотреть контейнеры приложения:
 ```bash
-	docker stack services <your-name>
+docker stack services <your-name>
 ```
 
 ### Проверка
@@ -150,16 +151,16 @@ ip-address - адрес, где запущен прокси
 
 port - Порт, который проброшен наверх
 ```sh
-	curl -Lx http://<ip-address>:<port>  https://icanhazip.com
+curl -Lx http://<ip-address>:<port>  https://icanhazip.com
 ```
 
 ### Остановка и Удаление
 Удаление приложения
 ```bash
-	docker stack rm <your-name>
+docker stack rm <your-name>
 ```
 
 Отключение менеджера (управляющего роем) 
 ```bash
-	docker swarm leave --force
+docker swarm leave --force
 ```
