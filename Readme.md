@@ -93,9 +93,9 @@ ExcludeNodes {us},{gb} StrictNodes 0
 после чего внести их в конфигурационный файл (socket = ip:port):
 
 Сайт тор:
-```
-	https://bridges.torproject.org/options/
-```
+
+[https://bridges.torproject.org/options/](https://bridges.torproject.org/options/)
+
 
 Параметры кофигурации:
 ```
