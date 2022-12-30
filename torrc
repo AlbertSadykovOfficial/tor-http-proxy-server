@@ -1,0 +1,29 @@
+# Все параметры:
+# https://2019.www.torproject.org/docs/tor-manual.html.en
+
+
+# Параметры по-умолчанию
+SocksPort 0.0.0.0:9050 IsolateDestAddr
+ControlPort 0.0.0.0:9051
+TransPort 0.0.0.0:9040
+HTTPTunnelPort 0.0.0.0:9052
+DataDirectory /var/lib/tor
+
+
+# Обновление IP адреса:
+# каждые 60 секунд
+# с проверкой обновления каждые 15 секунд
+MaxCircuitDirtiness 60
+NewCircuitPeriod 15
+
+
+# Если проблемы подключения (bootstrapping error), то
+# Задаем мосты вручную, чтобы тор знал куда подключаться
+UseBridges 1
+bridge 185.61.119.8:444
+bridge 80.247.238.246:444
+
+# Желательные выходные узлы (Россия, Украина, Беларусь)
+# Не включать следующие страны в путь (США, Великобритания)
+ExitNodes {ru},{ua},{by}
+ExcludeNodes {us},{gb} StrictNodes 0

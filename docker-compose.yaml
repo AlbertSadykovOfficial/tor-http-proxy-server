@@ -1,0 +1,6 @@
+version: "3"
+services:
+  proxy:
+    image: albertsadykovofficial/tor-proxy
+    ports:
+      - 9052:9052
